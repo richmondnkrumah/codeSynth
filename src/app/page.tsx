@@ -1,13 +1,23 @@
 import Link from 'next/link'
-import { Editor } from '@monaco-editor/react'
+import UserAvatar from '@/UI/UserAvatar'
+import AddUserButton from '@/UI/AddUserButton'
+import PreviewButton from '@/UI/PreviewButton'
+import Folder from '@/UI/Folder'
+import File from "@/UI/File";
 
 type Props = {}
 
 const Home = (props: Props) => {
   return (
-    <div>Home
+    <div>
+      <p>Home</p>
       <div>
-        <Link href="/editor">Editpr Playground</Link>
+        <Link href="/editor">Editor Playground</Link>
+        <UserAvatar />
+        <AddUserButton />
+        <PreviewButton />
+        <Folder />
+        <File />
       </div>
     </div>
   )
