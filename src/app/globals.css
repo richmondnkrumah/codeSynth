@@ -2,3 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
+.scrollContainer {
+    scrollbar-width: thin;
+    scrollbar-color: red gray;}
