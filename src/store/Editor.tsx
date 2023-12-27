@@ -4,7 +4,6 @@ import { create } from "zustand";
 interface EditorFile {
   fileName: string;
   language: string;
-  icon: React.ReactElement;
   content: string;
   defaultValue?: string;
 }

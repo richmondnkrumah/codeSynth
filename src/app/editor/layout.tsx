@@ -11,12 +11,10 @@ const EditorLayout = ({
   explorer: React.ReactNode;
 }) => {
   return (
-    <main className="w-screen h-screen  justify-between">
-      <div className="flex justify-between h-[calc(100%-25px)]">
-        <div className="bg-yellow-200">{explorer}</div>
-        <div className="h-full w-full">{children}</div>
-        <div className="bg-amber-300">{contributors}</div>
-      </div>
+    <main className="flex w-screen h-[calc(100vh-25px)]">
+        <section className=" w-[250px]">{explorer}</section>
+        <div className="w-[calc(100%-300px)]">{children}</div>
+        <section className=" w-[50px]">{contributors}</section>
       <StatusBar />
     </main>
   );

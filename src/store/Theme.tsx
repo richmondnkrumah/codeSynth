@@ -1,13 +1,14 @@
 import {create} from 'zustand'
+import THEMES from '@/Constant/themes'
 
 
 interface themes {
-    name: 'dark' | "light",
+    name: 'dark' | "light" | "test",
     colors: {
         primary: string,
         secondary: string,
-        font: string,
-        accent: string
+        accent: string,
+        editor: string
     }
 }
 
@@ -18,26 +19,6 @@ interface themeStore {
 
 }
 
-const Themes: themes[] = [
-    {
-        name: 'dark',
-        colors: {
-            primary: 'bg-blue-500',
-            secondary: 's',
-            font: 'S',
-            accent: 's'
-        }
-    },
-    {
-        name: 'light',
-        colors: {
-            primary: 'bg-amber-500',
-            secondary: 's',
-            font: 'S',
-            accent: 's'
-        }
-    }
-]
 
 export const useThemeStore = create<themeStore>()((set,get) => (
     {
@@ -45,8 +26,8 @@ export const useThemeStore = create<themeStore>()((set,get) => (
         setTheme: (newTheme) => set(() => ({theme: newTheme})),
         getTheme: () => {
             let currentThemeName = get().theme
-            let currentTheme = Themes.find((curr) => curr.name === currentThemeName)
-            return currentTheme ?? Themes[0]
+            let currentTheme = THEMES.find((curr) => curr.name === currentThemeName)
+            return currentTheme ?? THEMES[0]
             
         } 
 
