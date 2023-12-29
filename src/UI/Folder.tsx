@@ -1,12 +1,11 @@
 "use client";
-import React, { useState } from "react";
-
+import React, { useEffect, useState, useRef } from "react";
 type Props = {};
-
 
 const Folder = (props: Props) => {
   const [showInput, setShowInput] = useState(false);
   const [folderName, setFolderName] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFolderName(e.target.value);
@@ -16,9 +15,12 @@ const Folder = (props: Props) => {
       setShowInput(true);
     }
   };
-  
+  useEffect(() => {
+    inputRef.current?.focus({});
+  });
+
   return (
-    <div className="flex gap-1 items-center" >
+    <div className="flex gap-1 items-center">
       <svg
         width="36px"
         height="36px"
@@ -45,13 +47,13 @@ const Folder = (props: Props) => {
       </svg>
       <input
         value={folderName}
+        ref={inputRef}
         onChange={handleChange}
         type="text"
         onKeyDown={handleKeyDown}
         placeholder="Folder name"
         disabled={showInput}
       />
-
     </div>
   );
 };
