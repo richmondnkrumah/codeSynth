@@ -4,6 +4,7 @@ import { useThemeStore } from "@/store/Theme";
 import { useEditorFileStore } from "@/store/Editor";
 import File from "@/UI/File";
 import Folder from "@/UI/Folder";
+import THEMES from "@/Constant/themes";
 type Props = {};
 
 const Explorer = (props: Props) => {
@@ -131,6 +132,16 @@ const Explorer = (props: Props) => {
             <div>
                 {localFiles?.map((currentFile, idx) => (
                     <div key={idx}>{currentFile}</div>
+                ))}
+            </div>
+            <div className="flex flex-wrap gap-5">
+                {THEMES.map((currentTheme) => (
+                    <button className="p-1 border border-red-500"
+                        key={currentTheme.name}
+                        onClick={() => setTheme(currentTheme.name)}
+                    >
+                        {currentTheme.name}
+                    </button>
                 ))}
             </div>
         </div>
