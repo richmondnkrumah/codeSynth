@@ -15,7 +15,7 @@ interface AllEditorFiles {
   addNewFile: (file: EditorFile) => void;
   deleteFile: (file: EditorFile) => void;
   getCurrentFiles: () => EditorFile[] | undefined | null;
-  updateFile: (file: EditorFile, newContent: string) => void;
+  updateFile: (file: string, newContent: string) => void;
 }
 
 export const useEditorFileStore = create<AllEditorFiles>()((set, get) => ({
@@ -29,13 +29,13 @@ export const useEditorFileStore = create<AllEditorFiles>()((set, get) => ({
       ),
     })),
   getCurrentFiles: () => get().files,
-  updateFile: (file, newContent) =>
+  updateFile: (updatedFile, newContent) =>
     set((state) => ({
-      ...state,
       files: state?.files
         ? state.files.map((f) =>
-            f.fileName === file.fileName ? { ...f, content: newContent } : f
+            f.fileName === updatedFile ? { ...f, content: newContent } : f
           )
         : [],
-    })),
+    })
+    ),
 }));

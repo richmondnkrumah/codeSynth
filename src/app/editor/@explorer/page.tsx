@@ -2,9 +2,9 @@
 import React, { useState } from "react";
 import { useThemeStore } from "@/store/Theme";
 import { useEditorFileStore } from "@/store/Editor";
-import File from "@/UI/File";
-import Folder from "@/UI/Folder";
-import THEMES from "@/Constant/themes";
+import File from "@/components/ui/File";
+import Folder from "@/components/ui/Folder";
+import THEMES from "@/constant/themes";
 type Props = {};
 
 const Explorer = (props: Props) => {
@@ -135,9 +135,9 @@ const Explorer = (props: Props) => {
                 ))}
             </div>
             <div className="flex flex-wrap gap-5">
-                {THEMES.map((currentTheme) => (
+                {THEMES.map((currentTheme,idx) => (
                     <button className="p-1 border border-red-500"
-                        key={currentTheme.name}
+                        key={idx}
                         onClick={() => setTheme(currentTheme.name)}
                     >
                         {currentTheme.name}

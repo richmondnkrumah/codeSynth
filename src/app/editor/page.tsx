@@ -1,25 +1,27 @@
 "use client";
 import { useThemeStore } from "@/store/Theme";
-import Editor from "@monaco-editor/react";
+import Editor, { OnChange } from "@monaco-editor/react";
 import {
-  ReactElement,
   useState,
+  useEffect
 } from "react";
 import { useEditorFileStore } from "@/store/Editor";
+import { editor } from 'monaco-editor';
+
 
 type Props = {};
 interface EditorFile {
   fileName: string;
   language: string;
-  content: string;
+  content: string | OnChange;
   defaultValue?: string;
   icon?: React.ReactElement
 }
 
 const CodeEditor = (props: Props) => {
-  const {files} = useEditorFileStore()
-
+  const {files,updateFile} = useEditorFileStore()
   const [activeEditor, setActiveEditor] = useState<EditorFile | null>();
+
 
   const handleClick = (
     editor: EditorFile
@@ -28,7 +30,16 @@ const CodeEditor = (props: Props) => {
     console.log();
   };
   const {getTheme}  = useThemeStore()
-  const currentTheme = getTheme()  
+  const currentTheme = getTheme()
+  
+
+  const handleEditorContentChange = (value: string | undefined, ev: editor.IModelContentChangedEvent) => {
+    updateFile(activeEditor?.fileName!,value!)
+    console.log(files)
+
+    
+  }
+   
 
   return (
     <div className={`${currentTheme.colors.secondary} w-full h-full flex flex-col`}>
@@ -48,11 +59,17 @@ const CodeEditor = (props: Props) => {
         ))}
       </div>
       <div className=" flex-grow">
-         <Editor
-         defaultLanguage={activeEditor?.language}
-         defaultValue={"// some comment"}
-         path={activeEditor?.fileName}
-       />
+        {
+          files?.length && 
+          (
+            <Editor
+            defaultLanguage={activeEditor?.language}
+            onChange={handleEditorContentChange}
+            defaultValue={"// some comment"}
+            path={activeEditor?.fileName}
+          />
+          )
+        }
       </div>
     </div>
   );

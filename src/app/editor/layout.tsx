@@ -1,4 +1,4 @@
-import StatusBar from "@/UI/StatusBar";
+import StatusBar from "@/components/ui/StatusBar";
 import React from "react";
 
 const EditorLayout = ({

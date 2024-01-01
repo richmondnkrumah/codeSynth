@@ -1,11 +1,11 @@
 'use client'
 import Link from 'next/link'
-import UserAvatar from '@/UI/UserAvatar'
-import AddUserButton from '@/UI/AddUserButton'
-import PreviewButton from '@/UI/PreviewButton'
-import Folder from '@/UI/Folder'
-import File from "@/UI/File";
-import StatusBar from '@/UI/StatusBar'
+import UserAvatar from '@/components/ui/UserAvatar'
+import AddUserButton from '@/components/ui/AddUserButton'
+import PreviewButton from '@/components/ui/PreviewButton'
+import Folder from '@/components/ui/Folder'
+import File from "@/components/ui/File";
+import StatusBar from '@/components/ui/StatusBar'
 import { useEditorFileStore } from '@/store/Editor'
 import { useThemeStore } from '@/store/Theme'
 
