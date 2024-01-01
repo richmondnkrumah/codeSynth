@@ -1,5 +1,5 @@
 import {create} from 'zustand'
-import THEMES from '@/Constant/themes'
+import THEMES from '@/constant/themes'
 
 
 interface themes {
