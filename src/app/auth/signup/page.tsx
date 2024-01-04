@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
     Card,
     CardContent,
@@ -6,24 +6,24 @@ import {
     CardFooter,
     CardHeader,
     CardTitle,
-  } from "@/components/ui/card"
-  import EmailForm from "@/components/EmailForm"
-import AuthProviders from "@/components/AuthProviders"
-
-
+} from "@/components/ui/card";
+import EmailForm from "@/components/EmailForm";
+import AuthProviders from "@/components/AuthProviders";
 
 const SignupForm = () => {
-    return(
-        <Card>
-            <CardHeader>
-                <CardTitle>Sign Up </CardTitle>
-            </CardHeader>
-            <CardContent>
-                 <EmailForm />
-                <AuthProviders />
-            </CardContent>
-        </Card>
-    )
-} 
+    return (
+        <div className="flex justify-content content-center">
+            <Card>
+                <CardHeader>
+                    <CardTitle>Sign Up </CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <EmailForm />
+                    <AuthProviders />
+                </CardContent>
+            </Card>
+        </div>
+    );
+};
 
-export default SignupForm
+export default SignupForm;
