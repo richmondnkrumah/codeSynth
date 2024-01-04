@@ -12,8 +12,10 @@ interface EditorFile {
 
 interface AllEditorFiles {
   files: undefined | null | EditorFile[];
+  currentLanguage?: string
   addNewFile: (file: EditorFile) => void;
   deleteFile: (file: EditorFile) => void;
+  setCurrentLanguage: (lang: string) => void; 
   getCurrentFiles: () => EditorFile[] | undefined | null;
   updateFile: (file: string, newContent: string) => void;
 }
@@ -21,7 +23,7 @@ interface AllEditorFiles {
 export const useEditorFileStore = create<AllEditorFiles>()((set, get) => ({
   files: [],
   addNewFile: (file) =>
-    set((state) => ({ files: [...(state?.files || []), file] })),
+    set((state) => ({ currentLanguage:file.language, files: [...(state?.files || []), file] })),
   deleteFile: (file) =>
     set((state) => ({
       files: state?.files?.filter(
@@ -38,4 +40,6 @@ export const useEditorFileStore = create<AllEditorFiles>()((set, get) => ({
         : [],
     })
     ),
+    currentLanguage: '',
+    setCurrentLanguage: (lang) => set((state) => ({currentLanguage: lang}))
 }));
