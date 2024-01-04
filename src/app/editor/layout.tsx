@@ -11,7 +11,7 @@ const EditorLayout = ({
   explorer: React.ReactNode;
 }) => {
   return (
-    <main className="w-screen h-screen">
+    <main className="w-screen h-screen relative">
       <div className="flex h-[calc(100vh-25px)] w-full">
         <section className=" w-[250px]">{explorer}</section>
         <div className="w-[calc(100%-300px)]">{children}</div>
