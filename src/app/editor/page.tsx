@@ -19,7 +19,7 @@ interface EditorFile {
 }
 
 const CodeEditor = (props: Props) => {
-  const {files,updateFile} = useEditorFileStore()
+  const {files,updateFile,setCurrentLanguage} = useEditorFileStore()
   const [activeEditor, setActiveEditor] = useState<EditorFile | null>();
 
 
@@ -27,6 +27,7 @@ const CodeEditor = (props: Props) => {
     editor: EditorFile
   ) => {
     setActiveEditor(editor);
+    setCurrentLanguage(editor.language)
     console.log();
   };
   const {getTheme}  = useThemeStore()
@@ -36,11 +37,8 @@ const CodeEditor = (props: Props) => {
   const handleEditorContentChange = (value: string | undefined, ev: editor.IModelContentChangedEvent) => {
     updateFile(activeEditor?.fileName!,value!)
     console.log(files)
-
-    
   }
    
-
   return (
     <div className={`${currentTheme.colors.secondary} w-full h-full flex flex-col`}>
       <div className={`scrollContainer ${currentTheme.colors.primary} h-8 flex gap-1 overflow-scroll w-full`}>
