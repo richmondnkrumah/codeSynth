@@ -9,7 +9,7 @@ export const ICONS: icon[] = [
   {
     name: "css",
     icon: (
-      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg  className="w-7 h-7" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
         <g
           id="SVGRepo_tracerCarrier"
@@ -33,6 +33,7 @@ export const ICONS: icon[] = [
     name: "js",
     icon: (
       <svg
+      className="w-7 h-7"
         viewBox="0 0 32 32"
         xmlns="http://www.w3.org/2000/svg"
         fill="#000000"
@@ -56,7 +57,7 @@ export const ICONS: icon[] = [
   {
     name: "html",
     icon: (
-      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg className="w-7 h-7" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
         <g
           id="SVGRepo_tracerCarrier"
