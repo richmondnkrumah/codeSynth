@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import UserAvatar from "@/components/ui/UserAvatar";
 import AddUserButton from "@/components/ui/AddUserButton";
 import PreviewButton from "@/components/ui/PreviewButton";
 import { useThemeStore } from "@/store/Theme";
@@ -14,10 +13,10 @@ const Contributors = (props: Props) => {
 
     return (
         <div
-            className={`flex flex-col gap-2 pt-8 items-center h-full ${currentTheme.colors.primary}`}
+            className={` flex flex-col gap-2 pt-8 items-center h-full ${currentTheme.colors.primary}`}
         >
             <Avatar>
-                <AvatarImage src="/src/images/img5.jpg" alt="User Avatar" />
+                <AvatarImage src="" alt="User" />
                 <AvatarFallback>CW</AvatarFallback>
             </Avatar>
 
