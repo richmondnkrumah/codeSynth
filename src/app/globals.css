@@ -2,10 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-.scrollContainer {
+/* .scrollContainer {
     scrollbar-width: thin;
     scrollbar-color: red gray;
-}
+} */
  
 @layer base {
   :root {
