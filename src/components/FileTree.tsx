@@ -8,7 +8,6 @@ const FileTree = () => {
     useExplorerFileTree();
   const [folState, setFolState] = useState<null | boolean>(null);
   const [isDone, setIsDone] = useState<boolean>(true);
-  const treeNodeRef = useRef<null | HTMLDivElement>(null)
 
   const handleNodeCreation = (isFolder: boolean) => {
     setFolState(isFolder); 
@@ -18,8 +17,8 @@ const FileTree = () => {
 
   console.log(FileNodes,'sasa')
   return (
-    <div>
-       <div className="flex gap-1  px-1">
+    <div className="flex flex-col gap-2">
+       <div className="flex gap-1">
         <div>
           <input placeholder="Search" className="w-full" type="text"></input>
         </div>
@@ -99,7 +98,7 @@ const FileTree = () => {
         </div>
       </div>
      
-      <div ref={treeNodeRef}>
+      <div>
         {FileNodes.children?.map((entry,idx) => (
           <Entry  entry={entry} depth={1} isDone={isDone} folState={folState} setIsDone={setIsDone} childIndex={idx} parent={FileNodes} parentExpanded={true}/>
         ))}
