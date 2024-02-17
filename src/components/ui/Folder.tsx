@@ -1,8 +1,7 @@
-//Folder.tsx
 import { useExplorerFileTree } from "@/store/ExplorerFileTree";
 
 type props = {
-  name?: string;
+  name: string;
 };
 
 const Folder = ({ name }: props) => {
@@ -10,7 +9,7 @@ const Folder = ({ name }: props) => {
 
   const handleFolderClick = () => {
     console.log("I am clicked")
-    setCurrentFolderNode(name!);
+    setCurrentFolderNode(name);
   };
   return (
     <div className="flex gap-1  w-fit p-1"  onClick={handleFolderClick} >
