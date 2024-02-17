@@ -2,10 +2,9 @@
 import { useState,useRef} from "react";
 import Entry from "./Entry";
 import { useExplorerFileTree } from "@/store/ExplorerFileTree";
-import { v4 as uniqueID } from "uuid";
 
 const FileTree = () => {
-  const { FileNodes,setNewNode,deleteNode } =
+  const { FileNodes,setNewNode} =
     useExplorerFileTree();
   const [folState, setFolState] = useState<null | boolean>(null);
   const [isDone, setIsDone] = useState<boolean>(true);
@@ -25,7 +24,7 @@ const FileTree = () => {
           <input placeholder="Search" className="w-full" type="text"></input>
         </div>
         <div className="flex gap-1 items-center " >
-          <div onClick={() => handleNodeCreation(false)} className="w-5 cursor-pointer bg-red-500">
+          <div onClick={() => handleNodeCreation(false)} className="w-5 cursor-pointer">
             <svg
               viewBox="0 0 24 24"
               fill="none"
@@ -49,7 +48,7 @@ const FileTree = () => {
               </g>
             </svg>
           </div>
-          <div onClick={() => handleNodeCreation(true)} className="w-5 cursor-pointer bg-red-500">
+          <div onClick={() => handleNodeCreation(true)} className="w-5 cursor-pointer ">
             <svg
               viewBox="0 0 24 24"
               fill="none"
