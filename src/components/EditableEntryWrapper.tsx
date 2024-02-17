@@ -39,6 +39,7 @@ const EditableEntryWrapper: React.FC<EditableEntryWrapperProps> = ({
       <div className="wrapper">
         {isEditing && (
           <input
+          className="indent-6"
             ref={inputRef}
             type="text"
             value={inputValue}
