@@ -19,6 +19,8 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
       password,
       redirectTo: DEFAULT_LOGIN_REDIRECT,
     });
+    // might remove it later, placed it there to staisfy typescript
+    return {sucess: "User Created!"}
   } catch (error) {
     if (error instanceof AuthError) {
       console.log(error,"it is error in login")
@@ -30,5 +32,6 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
       }
     }
     throw error;
+
   }
 };
