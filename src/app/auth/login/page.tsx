@@ -6,24 +6,32 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
+import { Social } from "@/components/Social";
 import { Button } from "@/components/ui/button";
-import EmailForm from "@/components/EmailForm";
-import AuthProviders from "@/components/AuthProviders";
+import Link from "next/link";
+import LoginForm from "@/components/LoginForm";
 
-const LoginForm = () => {
+const Login = () => {
     return (
-        <div className="w-screen h-screen flex justify-center content-center">
-            {" "}
-            <Card style={} className="w-fit h-fit">
-                <CardHeader>
-                    <CardTitle>Sign In </CardTitle>
+            <Card className="w-96 h-fit">
+                <CardHeader className="text-center">
+                    <CardTitle>Welcome Back </CardTitle>
                 </CardHeader>
                 <CardContent>
-                    <EmailForm />
-                    <AuthProviders />
+                    <LoginForm />
                 </CardContent>
+                <CardFooter>
+                    <Social />
+                </CardFooter>
+                <CardFooter>
+                    <Button variant={'link'} className="w-full" size={'sm'} asChild>
+                        <Link href={'/auth/signup'}>
+
+                        Don't have and account?
+                        </Link>
+                    </Button>
+                </CardFooter>
             </Card>
-        </div>
     );
 };
-export default LoginForm;
+export default Login;

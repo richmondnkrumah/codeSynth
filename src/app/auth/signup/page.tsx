@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import {
     Card,
     CardContent,
@@ -7,23 +6,33 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
-import EmailForm from "@/components/EmailForm";
-import AuthProviders from "@/components/AuthProviders";
+import { Social } from "@/components/Social";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import SignUpForm from "@/components/SignUpForm";
 
-const SignupForm = () => {
+const SignUp = () => {
     return (
-        <div className="flex justify-content content-center">
-            <Card>
-                <CardHeader>
-                    <CardTitle>Sign Up </CardTitle>
+        
+            <Card className="w-96 h-fit">
+                <CardHeader className="text-center">
+                    <CardTitle>Create an account </CardTitle>
                 </CardHeader>
                 <CardContent>
-                    <EmailForm />
-                    <AuthProviders />
+                    <SignUpForm />
                 </CardContent>
+                <CardFooter>
+                    <Social />
+                </CardFooter>
+                <CardFooter>
+                    <Button variant={'link'} className="w-full" size={'sm'} asChild>
+                        <Link href={'/auth/login'}>
+
+                        Already have an account?
+                        </Link>
+                    </Button>
+                </CardFooter>
             </Card>
-        </div>
     );
 };
-
-export default SignupForm;
+export default SignUp;
