@@ -9,7 +9,8 @@ export type themesTypes = {
         primary: string,
         secondary: string,
         accent: string,
-        editor: string
+        editor: string,
+        font: string
     }
 }
 
