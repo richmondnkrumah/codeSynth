@@ -13,7 +13,7 @@ const Contributors = (props: Props) => {
 
     return (
         <div
-            className={` flex flex-col gap-2 pt-11 items-center h-full ${currentTheme.colors.primary}`}
+            className={` flex flex-col gap-2 pt-11 items-center h-full ${currentTheme.colors.secondary}`}
         >
             <Avatar>
                 <AvatarImage src="" alt="User" />
