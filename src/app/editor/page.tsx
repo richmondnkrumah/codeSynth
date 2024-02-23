@@ -42,15 +42,15 @@ const CodeEditor = () => {
   console.log(activeEditor, "this is active");
   return (
     <div
-      className={`${currentTheme.colors.secondary} w-full h-full flex flex-col`}
+      className={`  w-full h-full flex flex-col `}
     >
       <div
-        className={`scrollContainer ${currentTheme.colors.primary} h-14 py-1 flex gap-1 overflow-x-scroll w-full  overflow-y-hidden`}
+        className={`scrollContainer ${currentTheme.colors.primary} h-fit  flex gap-1 overflow-x-auto overflow-y-hidden w-full`}
       >
         {files?.map((editor) => (
           <div
             className={`text-sm relative flex w-[180px] justify-between items-center 
-            before:content-[""] before:w-full before:h-1 before:absolute before:bottom-0 ${
+            before:content-[""] h-14 before:w-full before:h-[3px] before:absolute before:bottom-1 ${
               currentTheme.colors.accent
             } ${
               activeEditor?.fileName === editor.fileName
@@ -102,13 +102,22 @@ const CodeEditor = () => {
           </div>
         ))}
       </div>
-      <div className=" flex-grow">
+      <div className="w-full h-full ">
         {activeEditor && files?.length && (
           <Editor
             defaultLanguage={activeEditor?.language}
             onChange={handleEditorContentChange}
             defaultValue={"// some comment"}
             path={activeEditor?.fileName}
+            
+            options={
+              {
+                minimap: {
+                  enabled: false
+                }
+              }
+            }
+            
           />
         )}
       </div>
