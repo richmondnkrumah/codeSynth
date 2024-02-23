@@ -6,6 +6,13 @@
     scrollbar-width: thin;
     /* scrollbar-color: red gray; */
 }
+.scrollContainer:not(:hover)::-webkit-scrollbar {
+  display: none;
+}
+.scrollContainer:not(:hover) {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
  
 @layer base {
   :root {
