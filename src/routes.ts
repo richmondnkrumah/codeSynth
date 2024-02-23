@@ -1,7 +1,7 @@
 export const publicRoutes = [
-  "/"
+  "/",
+  "/editor"
 ]
-
 
 // redirect to /settings
 export const authRoutes = [
