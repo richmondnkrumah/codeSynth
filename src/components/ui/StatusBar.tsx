@@ -27,8 +27,10 @@ const StatusBar = (props: Props) => {
   }
   return (
     <div
-      className={`fixed bottom-0 w-screen h-[30px] ${currentTheme.colors.primary} pl-2 flex items-center justify-between  pr-[15px] sm:pr-[65px]  `}
+
+      className={`fixed bottom-0 w-screen h-[30px] ${currentTheme.colors.font}  ${currentTheme.colors.primary} pl-2 flex items-center justify-between  pr-[15px]  `}
     >
+      <span className="absolute top-0 bg-gray-500 w-full h-[2px] left-0"></span>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <p>THEME: {newTheme}</p>
