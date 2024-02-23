@@ -2,6 +2,7 @@
 import { useThemeStore } from "@/store/Theme";
 import Editor from "@monaco-editor/react";
 import { useEditorFileStore } from "@/store/Editor";
+import { useRef, useEffect } from "react";
 
 interface EditorFile {
   fileName: string;
@@ -20,16 +21,18 @@ const CodeEditor = () => {
     addNewDeletedFile,
     updateFile,
     setCurrentLanguage,
-    setNewTabHistory
+    setNewTabHistory,
   } = useEditorFileStore();
 
   const handleClick = (editor: EditorFile) => {
     setActiveEditor(editor);
     setCurrentLanguage(editor.language);
-    setNewTabHistory(editor)
+    setNewTabHistory(editor);
   };
   const { getTheme } = useThemeStore();
   const currentTheme = getTheme();
+  const fileContainerRef = useRef<null | HTMLDivElement>(null);
+  const activeEditorRef = useRef<null | HTMLDivElement>(null);
 
   const handleEditorContentChange = (value: string | undefined) => {
     updateFile(activeEditor?.fileName!, value ? value : "");
@@ -37,18 +40,46 @@ const CodeEditor = () => {
   const handleDeletedFiles = (editor: EditorFile) => {
     addNewDeletedFile(editor);
   };
+  useEffect(() => {
+    scrollToActiveFile();
+  }, [activeEditor]);
+
+  const scrollToActiveFile = () => {
+    if (fileContainerRef.current) {
+      const container = fileContainerRef.current;
+
+      const activeFileElement = activeEditorRef
+        ? activeEditorRef.current
+        : null;
+      if (activeFileElement) {
+        // get the container full width
+        const containerWidth = container.offsetWidth;
+        // get the activeFiles current position  from the containers left edge to its left edge
+        const fileOffsetLeft = activeFileElement.offsetLeft;
+        // get the active file width
+        const fileWidth = activeFileElement.offsetWidth;
+        // calculate the distance the scrollbar has to move
+        const scrollTo = fileOffsetLeft + fileWidth - containerWidth;
+        container.scrollLeft = scrollTo > 0 ? scrollTo : 0;
+      }
+    }
+  };
   console.log(files, "files");
   console.log(deletedFiles, "deleted Files");
   console.log(activeEditor, "this is active");
   return (
-    <div
-      className={`  w-full h-full flex flex-col `}
-    >
+    <div className={`  w-full h-full flex flex-col `}>
       <div
+        ref={fileContainerRef}
         className={`scrollContainer ${currentTheme.colors.primary} h-fit  flex gap-1 overflow-x-auto overflow-y-hidden w-full`}
       >
         {files?.map((editor) => (
           <div
+            ref={
+              activeEditor?.fileName === editor.fileName
+                ? activeEditorRef
+                : null
+            }
             className={`text-sm relative flex w-[180px] justify-between items-center 
             before:content-[""] h-14 before:w-full before:h-[3px] before:absolute before:bottom-1 ${
               currentTheme.colors.accent
@@ -56,7 +87,8 @@ const CodeEditor = () => {
               activeEditor?.fileName === editor.fileName
                 ? "before:block"
                 : "before:hidden"
-            }`}
+            } 
+            `}
             key={editor.fileName + editor.language}
           >
             <div
@@ -109,15 +141,11 @@ const CodeEditor = () => {
             onChange={handleEditorContentChange}
             defaultValue={"// some comment"}
             path={activeEditor?.fileName}
-            
-            options={
-              {
-                minimap: {
-                  enabled: false
-                }
-              }
-            }
-            
+            options={{
+              minimap: {
+                enabled: false,
+              },
+            }}
           />
         )}
       </div>
