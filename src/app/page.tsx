@@ -29,8 +29,8 @@ const Home = (props: Props) => {
         <UserAvatar />
         <AddUserButton />
         <PreviewButton />
-        <Folder />
-        <File />
+        <Folder name='testie'/>
+        <File name='testFil'/>
         <StatusBar />
       </div>
       <button onClick={() => addNewFile(test)}>ADD New FIle</button>
