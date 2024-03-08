@@ -15,10 +15,10 @@ const THEMES: themes[] = [
     {
         name: 'dark',
         colors: {
-            primary: 'bg-[#232244]',
+            primary: 'bg-[#1A1020]',
             secondary: 'bg-[#23272e]',
-            accent: 'before:bg-[#7799f2]',
-            editor: 'bg-[#2f2f62]',
+            accent: 'before:bg-[#AB85C1]',
+            editor: 'bg-[#2C1B36]',
             font: 'text-[#FFFFFF]'
         }
     },
