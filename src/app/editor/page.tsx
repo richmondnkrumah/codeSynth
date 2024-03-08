@@ -1,6 +1,6 @@
 "use client";
 import { useThemeStore } from "@/store/Theme";
-import Editor from "@monaco-editor/react";
+import Editor, { useMonaco } from "@monaco-editor/react";
 import { useEditorFileStore } from "@/store/Editor";
 import { useRef, useEffect } from "react";
 
@@ -11,8 +11,27 @@ interface EditorFile {
   defaultValue?: string;
   icon?: React.ReactElement;
 }
+// '#2C1B36'
 
 const CodeEditor = () => {
+  const { getTheme } = useThemeStore();
+  const currentTheme = getTheme();
+  const monacoInstance = useMonaco()
+  monacoInstance?.editor.defineTheme('dark', {
+    base: 'vs',
+    inherit: true,
+    rules: [
+      {
+        token: 'comment',
+        foreground: '#5d7988',
+        fontStyle: 'italic'
+      },
+      { token: 'constant', foreground: '#e06c75' }
+    ],
+    colors: {
+      'editor.background': `${currentTheme.colors.editor.split('[')[1].split(']')[0]}`
+    }
+  });
   const {
     files,
     activeEditor,
@@ -29,8 +48,7 @@ const CodeEditor = () => {
     setCurrentLanguage(editor.language);
     setNewTabHistory(editor);
   };
-  const { getTheme } = useThemeStore();
-  const currentTheme = getTheme();
+ 
   const fileContainerRef = useRef<null | HTMLDivElement>(null);
   const activeEditorRef = useRef<null | HTMLDivElement>(null);
 
@@ -80,7 +98,7 @@ const CodeEditor = () => {
                 ? activeEditorRef
                 : null
             }
-            className={`text-sm relative flex w-[180px] justify-between items-center 
+            className={`text-sm ${currentTheme.colors.font} relative flex w-[180px] justify-between items-center 
             before:content-[""] h-14 before:w-full before:h-[3px] before:absolute before:bottom-1 ${
               currentTheme.colors.accent
             } ${
@@ -122,7 +140,7 @@ const CodeEditor = () => {
                     <path
                       id="Vector"
                       d="M16 16L12 12M12 12L8 8M12 12L16 8M12 12L8 16"
-                      stroke="#000000"
+                      stroke={`${currentTheme.colors.accent.split('[')[1].split(']')[0]}`}
                       stroke-width="2"
                       stroke-linecap="round"
                       stroke-linejoin="round"
@@ -146,6 +164,8 @@ const CodeEditor = () => {
                 enabled: false,
               },
             }}
+            theme="dark"
+            
           />
         )}
       </div>
