@@ -19,18 +19,20 @@ const StatusBar = (props: Props) => {
   const { getTheme,setTheme } = useThemeStore();
   const { currentLanguage } = useEditorFileStore();
   const currentTheme = getTheme();
-  const [newTheme, setNewTheme] = React.useState("light");
+  const [newTheme, setNewTheme] = React.useState(currentTheme.name);
   
   const handleThemeChange = (theme: string) => {
     setNewTheme(theme)
     setTheme(theme)
   }
+
   return (
     <div
 
-      className={`fixed bottom-0 w-screen h-[30px] ${currentTheme.colors.font}  ${currentTheme.colors.primary} pl-2 flex items-center justify-between  pr-[15px]  `}
+      className={`fixed bottom-0 w-screen h-[30px] ${currentTheme.colors.font}  ${currentTheme.colors.primary} pl-2 flex items-center justify-between  pr-[15px] `}
     >
-      <span className="absolute top-0 bg-gray-500 w-full h-[2px] left-0"></span>
+      {/* A small line break gap that separates the components */}
+      {/* <span className={`absolute top-0 ${okay} w-full h-[12px] left-0`}></span> */}
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <p>THEME: {newTheme}</p>
