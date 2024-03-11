@@ -1,5 +1,5 @@
 "use client"
-import { useState} from "react";
+import { useState } from "react";
 import Entry from "./Entry";
 import { useExplorerFileTree } from "@/store/ExplorerFileTree";
 import { useThemeStore } from "@/store/Theme";
@@ -7,21 +7,21 @@ import { useThemeStore } from "@/store/Theme";
 const FileTree = () => {
   const { getTheme } = useThemeStore();
   const currentTheme = getTheme();
-  const { FileNodes,setNewNode} =
+  const { FileNodes, setNewNode } =
     useExplorerFileTree();
   const [folState, setFolState] = useState<null | boolean>(null);
+  const [openProjectDirectory,setOpenProjectDirectory] = useState<boolean>(true)
   const [isDone, setIsDone] = useState<boolean>(true);
 
   const handleNodeCreation = (isFolder: boolean) => {
-    setFolState(isFolder); 
+    setFolState(isFolder);
     setIsDone(true);
     setNewNode();
   }
 
-  console.log(FileNodes,'sasa')
   return (
     <div className="flex flex-col gap-2">
-       <div className="flex gap-1  ">
+      <div className="flex gap-1  ">
         <div className="grow">
           <input placeholder="Search" className="w-full h-8 border border-gray-800/80 bg-inherit outline-none rounded-2xl indent-4" type="text"></input>
         </div>
@@ -74,7 +74,7 @@ const FileTree = () => {
               </g>
             </svg>
           </div>
-          <div  className="w-4 cursor-pointer">
+          <div className="w-4 cursor-pointer">
             <svg
               viewBox="0 0 24 24"
               fill="none"
@@ -100,11 +100,22 @@ const FileTree = () => {
           </div>
         </div>
       </div>
-     
-      <div>
-        {FileNodes.children?.map((entry,idx) => (
-          <Entry  entry={entry} depth={1} isDone={isDone} folState={folState} setIsDone={setIsDone} childIndex={idx} parent={FileNodes} parentExpanded={true}/>
-        ))}
+
+      <div className="relative">
+        <div onClick={() => setOpenProjectDirectory(prev => !prev)} className={`flex gap-2 ${currentTheme.colors.editor} py-1 absolute w-[calc(100%_+_16px)] -left-2`}>
+          <span className="block w-4 pl-2">{openProjectDirectory ? "+" : "-"}</span>
+          <p>New Project</p>
+        </div>
+        {
+          openProjectDirectory && (
+            <div className="pl-4 mt-9 overflow-auto">
+            {FileNodes.children?.map((entry, idx) => (
+              <Entry entry={entry} depth={1} isDone={isDone} folState={folState} setIsDone={setIsDone} childIndex={idx} parent={FileNodes} parentExpanded={true} />
+            ))}
+          </div>
+          )
+        }
+       
       </div>
     </div>
   );

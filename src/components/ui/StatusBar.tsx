@@ -34,14 +34,14 @@ const StatusBar = (props: Props) => {
       {/* A small line break gap that separates the components */}
       {/* <span className={`absolute top-0 ${okay} w-full h-[12px] left-0`}></span> */}
       <DropdownMenu>
-        <DropdownMenuTrigger asChild>
+        <DropdownMenuTrigger asChild className="cursor-pointer">
           <p>THEME: {newTheme}</p>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56">
           <DropdownMenuSeparator />
           <DropdownMenuRadioGroup className=" h-72 overflow-y-scroll" value={newTheme} onValueChange={handleThemeChange}>
             {THEMES.map((theme) => (
-              <DropdownMenuRadioItem value={theme.name}>
+              <DropdownMenuRadioItem className="cursor-pointer" value={theme.name}>
                 {theme.name}
               </DropdownMenuRadioItem>
             ))}
