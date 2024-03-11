@@ -31,13 +31,13 @@ const CodeEditor = () => {
     ],
     colors: {
       'editor.background': `${currentTheme.colors.editor.split('[')[1].split(']')[0]}`,
-        // "editor.foreground": "#d6deeb",
-        "editor.selectionBackground": "#5f7e9779",
-        "editor.lineHighlightBackground": "#010E17",
-        "editorCursor.foreground": "#80a4c2",
-        // "editorWhitespace.foreground": "#2e2040",
-        // "editorIndentGuide.background": "#5e81ce52",
-        "editor.selectionHighlightBorder": "#122d42"
+      // "editor.foreground": "#d6deeb",
+      "editor.selectionBackground": "#5f7e9779",
+      "editor.lineHighlightBackground": "#010E17",
+      "editorCursor.foreground": "#80a4c2",
+      // "editorWhitespace.foreground": "#2e2040",
+      // "editorIndentGuide.background": "#5e81ce52",
+      "editor.selectionHighlightBorder": "#122d42"
     }
   });
   const {
@@ -90,11 +90,8 @@ const CodeEditor = () => {
       }
     }
   };
-  console.log(files, "files");
-  console.log(deletedFiles, "deleted Files");
-  console.log(activeEditor, "this is active");
   return (
-    <div className={`  w-full h-full flex flex-col `}>
+    <div className={`relative  w-full h-full flex flex-col `}>
       <div
         ref={fileContainerRef}
         className={`scrollContainer ${currentTheme.colors.primary} h-fit  flex gap-1 overflow-x-auto overflow-y-hidden w-full`}
@@ -158,12 +155,15 @@ const CodeEditor = () => {
           </div>
         ))}
       </div>
+      <div className={`absolute z-[999] bottom-10 right-10 w-16 h-16 flex items-center justify-center ${currentTheme.colors.primary} text-gray-500  rounded-full`}>
+        <span> ADD</span>
+      </div>
       <div className={`${currentTheme.colors.editor} w-full h-full`}>
         {(activeEditor && files?.length) ? (
           <Editor
             defaultLanguage={activeEditor?.language}
             onChange={handleEditorContentChange}
-            defaultValue={"// some comment"}
+            defaultValue={""}
             path={activeEditor?.fileName}
             options={{
               minimap: {
