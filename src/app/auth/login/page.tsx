@@ -1,7 +1,6 @@
 import {
     Card,
     CardContent,
-    CardDescription,
     CardFooter,
     CardHeader,
     CardTitle,
@@ -27,7 +26,7 @@ const Login = () => {
                     <Button variant={'link'} className="w-full" size={'sm'} asChild>
                         <Link href={'/auth/signup'}>
 
-                        Don't have and account?
+                        Don't have an account?
                         </Link>
                     </Button>
                 </CardFooter>

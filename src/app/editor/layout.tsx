@@ -9,7 +9,6 @@ const EditorLayout = ({
   explorer: React.ReactNode;
 }) => {
 
-  //TODO : add contributors as a collapsible panel to the explorer
   //TODO : add a floating button for the preview site option at the right hand side of the editor
   return (
     <main className="w-screen h-screen relative">
