@@ -7,7 +7,6 @@ export const deleteFileNode = (node: TFiles, nameToDelete: string): TFiles | und
 
   // If the current node's name matches the name to delete, return undefined to remove it
   if (node.name === nameToDelete){
-    console.log(node.name,'is now undefined')
     return undefined;
   }  
   // If the current node is a folder and has children, recursively delete from children
@@ -15,7 +14,6 @@ export const deleteFileNode = (node: TFiles, nameToDelete: string): TFiles | und
     const updatedChildren = node.children
       .map((child) => deleteFileNode(child, nameToDelete)) // Recursively delete from children
       .filter((child): child is TFiles => !!child); // Filter out any undefined children (deleted nodes)
-    console.log(updatedChildren,'childrenUpdated')
     return { ...node, children: updatedChildren   };
   }
 

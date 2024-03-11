@@ -56,15 +56,12 @@ const Entry = ({
 
     // handle Folders with Children
     if (parent.name === currentFolderNode && newNode && parentExpanded) {
-      console.log(entry.name, "this is a child of", parent.name);
       if (parent.children?.length === childIndex + 1) return true;
     }
     if (currentFolderNode === entry.name && newNode && !entry.children) {
-      console.log(entry.name, "it is an empty folder");
       return true;
     }
   };
-  console.log(isExpanded,'exx')
 
   return (
     <>

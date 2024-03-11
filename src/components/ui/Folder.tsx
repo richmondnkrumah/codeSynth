@@ -18,7 +18,6 @@ const Folder = ({ name }: props) => {
   const {setCurrentFolderNode,deleteNode } = useExplorerFileTree();
 
   const handleFolderClick = () => {
-    console.log("I am clicked")
     setCurrentFolderNode(name);
   };
   return (
