@@ -10,6 +10,10 @@ const LANGUAGES: {name: string, fullName: string}[] = [
     {
         name: 'html',
         fullName: 'HTML'
+    },
+    {
+        name: 'ts',
+        fullName: 'TypeScript'
     }
 
 ]

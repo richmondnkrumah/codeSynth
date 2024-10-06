@@ -28,20 +28,19 @@ const StatusBar = (props: Props) => {
 
   return (
     <div
-
       className={`fixed bottom-0 w-screen h-[30px] ${currentTheme.colors.font}  ${currentTheme.colors.primary} pl-2 flex items-center justify-between  pr-[15px] `}
     >
       {/* A small line break gap that separates the components */}
       {/* <span className={`absolute top-0 ${okay} w-full h-[12px] left-0`}></span> */}
       <DropdownMenu>
         <DropdownMenuTrigger asChild className="cursor-pointer">
-          <p>THEME: {newTheme}</p>
+          <p className={`text-sm font-bold ${currentTheme.colors.font}`}>Theme: <span>{newTheme}</span></p>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56">
           <DropdownMenuSeparator />
-          <DropdownMenuRadioGroup className=" h-72 overflow-y-scroll" value={newTheme} onValueChange={handleThemeChange}>
+          <DropdownMenuRadioGroup className=" h-22 " value={newTheme} onValueChange={handleThemeChange}>
             {THEMES.map((theme) => (
-              <DropdownMenuRadioItem className="cursor-pointer" value={theme.name}>
+              <DropdownMenuRadioItem key={theme.name} className="cursor-pointer" value={theme.name}>
                 {theme.name}
               </DropdownMenuRadioItem>
             ))}
@@ -72,7 +71,7 @@ const StatusBar = (props: Props) => {
               {" "}
               <path
                 d="M8.61914 3C6.37761 5.33579 5 8.50702 5 12C5 15.493 6.37761 18.6642 8.61914 21M15.3809 3C17.6224 5.33579 19 8.50702 19 12C19 15.493 17.6224 18.6642 15.3809 21"
-                stroke="#000000"
+                stroke={`${currentTheme.colors.editorFont}`}
                 strokeWidth="2"
                 strokeLinecap="round"
               ></path>{" "}

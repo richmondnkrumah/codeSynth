@@ -10,7 +10,10 @@ export type themesTypes = {
         secondary: string,
         accent: string,
         editor: string,
-        font: string
+        font: string,
+        foreground: string,
+        editorFont: string
+
     }
 }
 

@@ -6,34 +6,38 @@ import {
   ContextMenuTrigger,
 } from "@/components/ui/context-menu"
 import { useThemeStore } from "@/store/Theme";
+import { useState } from "react";
 
 
 type props = {
   name: string;
+  expanded: boolean
 };
 
-const Folder = ({ name }: props) => {
+const Folder = ({ name,expanded }: props) => {
   const { getTheme } = useThemeStore();
   const currentTheme = getTheme();
-  const {setCurrentFolderNode,deleteNode } = useExplorerFileTree();
+  const { setCurrentFolderNode, deleteNode } = useExplorerFileTree();
 
-  const handleFolderClick = () => {
-    setCurrentFolderNode(name);
-  };
   return (
-    
-        <ContextMenu>
-        <ContextMenuTrigger>
-        <div className="flex gap-1 w-fit"  onClick={handleFolderClick} >
-      <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M3 8.2C3 7.07989 3 6.51984 3.21799 6.09202C3.40973 5.71569 3.71569 5.40973 4.09202 5.21799C4.51984 5 5.0799 5 6.2 5H9.67452C10.1637 5 10.4083 5 10.6385 5.05526C10.8425 5.10425 11.0376 5.18506 11.2166 5.29472C11.4184 5.4184 11.5914 5.59135 11.9373 5.93726L12.0627 6.06274C12.4086 6.40865 12.5816 6.5816 12.7834 6.70528C12.9624 6.81494 13.1575 6.89575 13.3615 6.94474C13.5917 7 13.8363 7 14.3255 7H17.8C18.9201 7 19.4802 7 19.908 7.21799C20.2843 7.40973 20.5903 7.71569 20.782 8.09202C21 8.51984 21 9.0799 21 10.2V15.8C21 16.9201 21 17.4802 20.782 17.908C20.5903 18.2843 20.2843 18.5903 19.908 18.782C19.4802 19 18.9201 19 17.8 19H6.2C5.07989 19 4.51984 19 4.09202 18.782C3.71569 18.5903 3.40973 18.2843 3.21799 17.908C3 17.4802 3 16.9201 3 15.8V8.2Z" stroke={`${currentTheme.colors.accent.split('[')[1].split(']')[0]}`} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> </g></svg>
-      <p>{name}</p>
-    </div>
-        </ContextMenuTrigger>
-        <ContextMenuContent>
-          <ContextMenuItem onClick={() => deleteNode(name)}>Delete</ContextMenuItem>
-        </ContextMenuContent>
-      </ContextMenu>
+    <ContextMenu>
+      <ContextMenuTrigger>
+        <div className="flex gap-1 w-full" onClick={() => setCurrentFolderNode(name)} >
+          {
+            expanded ?
+              <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M5.70711 9.71069C5.31658 10.1012 5.31658 10.7344 5.70711 11.1249L10.5993 16.0123C11.3805 16.7927 12.6463 16.7924 13.4271 16.0117L18.3174 11.1213C18.708 10.7308 18.708 10.0976 18.3174 9.70708C17.9269 9.31655 17.2937 9.31655 16.9032 9.70708L12.7176 13.8927C12.3271 14.2833 11.6939 14.2832 11.3034 13.8927L7.12132 9.71069C6.7308 9.32016 6.09763 9.32016 5.70711 9.71069Z" fill={`${currentTheme.colors.accent.split('[')[1].split(']')[0]}`}></path> </g></svg>
+              :
+              <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M10 7L15 12L10 17" stroke={`${currentTheme.colors.accent.split('[')[1].split(']')[0]}`} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path> </g></svg>
+          }
+          <p>{name}</p>
+        </div>
+      </ContextMenuTrigger>
+      <ContextMenuContent>
+        <ContextMenuItem onClick={() => deleteNode(name)}>Delete</ContextMenuItem>
+      </ContextMenuContent>
+    </ContextMenu>
   );
 };
+// 
 
 export default Folder;

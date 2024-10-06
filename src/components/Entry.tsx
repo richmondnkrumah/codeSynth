@@ -1,5 +1,5 @@
 // Entry.tsx
-import { useState, Dispatch, SetStateAction } from "react";
+import React, { useState, Dispatch, SetStateAction } from "react";
 import { useExplorerFileTree, type TFiles } from "@/store/ExplorerFileTree";
 import File from "@/components/ui/File";
 import Folder from "@/components/ui/Folder";
@@ -42,7 +42,7 @@ const Entry = ({
     (state) => state.currentFolderNode
   );
   const newNode = useExplorerFileTree((state) => state.newNode);
-  
+  const { setNewNode } = useExplorerFileTree()
   const handleNewNode = ({
     parent,
     currentFolderNode,
@@ -62,21 +62,27 @@ const Entry = ({
       return true;
     }
   };
-
+  const handleCreationExpansion = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    // func to expand the nodes in case the nodes are close during file or folder creation
+    // setIsExpanded(true)
+    event.stopPropagation()
+    setIsExpanded(prev => !prev)
+    setNewNode(false)
+  }
   return (
     <>
       <div
         className="cursor-pointer"
-        onClick={() => setIsExpanded(prev => !prev)}
+        onClick={handleCreationExpansion}
       >
         <div>
           {entry.isFolder ? (
-            <Folder name={entry.name} />
+            <Folder name={entry.name} expanded={isExpanded} />
           ) : (
             <File name={entry.name} />
           )}
         </div>
-        
+
         {handleNewNode({
           parent,
           currentFolderNode,
@@ -85,20 +91,20 @@ const Entry = ({
           childIndex,
           newNode,
         }) && (
-          <CreateNode
-            isDone={isDone}
-            folState={folState}
-            setIsDone={setIsDone}
-          />
-        )}
-        
+            <CreateNode
+              isDone={isDone}
+              folState={folState}
+              setIsDone={setIsDone}
+            />
+          )}
+
       </div>
       <div>
         {isExpanded && (
           <div style={{ paddingLeft: entry.children ? "20px" : "" }}>
             {entry.children?.map((entryChild, idx) => (
               <Entry
-              
+                key={entryChild.name}
                 entry={entryChild}
                 depth={depth + 1}
                 isDone={isDone}
@@ -107,6 +113,7 @@ const Entry = ({
                 childIndex={idx}
                 parent={entry}
                 parentExpanded={isExpanded}
+
               />
             ))}
           </div>

@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import { Toaster } from '@/components/ui/toaster'
 
 
 export const metadata: Metadata = {
@@ -15,7 +14,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}<Toaster /></body>
+      <body className='bg-gray-950'><div className="flex min-h-screen flex-col overflow-hidden supports-[overflow:clip]:overflow-clip">
+          {children}
+        </div></body>
     </html>
   )
 }

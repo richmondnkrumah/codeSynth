@@ -11,7 +11,6 @@ interface EditorFile {
   defaultValue?: string;
   icon?: React.ReactElement;
 }
-// '#2C1B36'
 
 const CodeEditor = () => {
   const { getTheme } = useThemeStore();
@@ -31,9 +30,9 @@ const CodeEditor = () => {
     ],
     colors: {
       'editor.background': `${currentTheme.colors.editor.split('[')[1].split(']')[0]}`,
-      // "editor.foreground": "#d6deeb",
+      "editor.foreground": `${currentTheme.colors.editorFont}`,
       "editor.selectionBackground": "#5f7e9779",
-      "editor.lineHighlightBackground": "#010E17",
+      "editor.lineHighlightBackground": `${currentTheme.colors.foreground}`,
       "editorCursor.foreground": "#80a4c2",
       // "editorWhitespace.foreground": "#2e2040",
       // "editorIndentGuide.background": "#5e81ce52",
@@ -103,7 +102,7 @@ const CodeEditor = () => {
                 ? activeEditorRef
                 : null
             }
-            className={`text-sm ${currentTheme.colors.font} relative flex w-[180px] justify-between items-center 
+            className={`text-sm ${currentTheme.colors.font} cursor-pointer relative flex w-[180px] justify-between items-center 
             before:content-[""] h-14 before:w-full before:h-[3px] before:absolute before:bottom-1 ${currentTheme.colors.accent
               } ${activeEditor?.fileName === editor.fileName
                 ? "before:block"
@@ -130,11 +129,11 @@ const CodeEditor = () => {
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
                 <g
                   id="SVGRepo_tracerCarrier"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 ></g>
                 <g id="SVGRepo_iconCarrier">
                   {" "}
@@ -144,9 +143,9 @@ const CodeEditor = () => {
                       id="Vector"
                       d="M16 16L12 12M12 12L8 8M12 12L16 8M12 12L8 16"
                       stroke={`${currentTheme.colors.accent.split('[')[1].split(']')[0]}`}
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     ></path>{" "}
                   </g>{" "}
                 </g>
@@ -155,15 +154,15 @@ const CodeEditor = () => {
           </div>
         ))}
       </div>
-      <div className={`absolute z-[999] bottom-10 right-10 w-16 h-16 flex items-center justify-center ${currentTheme.colors.primary} text-gray-500  rounded-full`}>
+      {/* <div className={`absolute z-[999] bottom-10 right-10 w-16 h-16 flex items-center justify-center ${currentTheme.colors.primary} text-gray-500  rounded-full`}>
         <span> ADD</span>
-      </div>
+      </div> */}
       <div className={`${currentTheme.colors.editor} w-full h-full`}>
         {(activeEditor && files?.length) ? (
           <Editor
             defaultLanguage={activeEditor?.language}
             onChange={handleEditorContentChange}
-            defaultValue={""}
+            defaultValue={activeEditor.content}
             path={activeEditor?.fileName}
             options={{
               minimap: {
@@ -171,7 +170,6 @@ const CodeEditor = () => {
               }
             }}
             theme="dark"
-
           />
         ) : (
           <div className="h-full flex justify-center items-center flex-col gap-3">

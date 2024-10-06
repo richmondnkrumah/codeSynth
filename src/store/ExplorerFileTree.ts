@@ -13,43 +13,25 @@ interface TFilesStore {
   setCurrentFolderNode: (folder: string) => void;
   createNode: (newNodeName: string, isFolder?: boolean) => void;
   newNode: boolean;
-  setNewNode: () => void;
+  setNewNode: (value: boolean) => void;
   deleteNode: (name: string) => void;
+  checkUniqueNodeName: (name: string) => boolean;
 }
 
-export const useExplorerFileTree = create<TFilesStore>((set) => ({
+export const useExplorerFileTree = create<TFilesStore>((set,get) => ({
   FileNodes: {
     name: "root",
     isFolder: true,
     children: [
       {
-        name: "node_modules",
-        isFolder: true,
-        children: [
-          {
-            name: ".bin",
-          },
-          {
-            name: ".cache",
-          },
-          {
-            name: "testFolder",
-            isFolder: true,
-            children: [
-              {
-                name: "testFile1",
-              },
-              {
-                name: "testFile2",
-              },
-            ],
-          },
-        ],
+        name: "index.js",
+        
       },
+      
     ],
   },
   newNode: false,
-  setNewNode: () => set((state) => ({ newNode: !state.newNode })),
+  setNewNode: (value) => set((state) => ({ newNode: value })),
   currentFolderNode: "root",
   setCurrentFolderNode: (folder: string) =>
     set({
@@ -61,6 +43,24 @@ export const useExplorerFileTree = create<TFilesStore>((set) => ({
       FileNodes: updateFileNode(state.FileNodes, state.currentFolderNode, newNodeName, isFolder),
     })),
     deleteNode: (name) =>
-    set((state) =>  ({ FileNodes: deleteFileNode(state.FileNodes, name) || state.FileNodes })) // Return updated state),
+    set((state) =>  ({ FileNodes: deleteFileNode(state.FileNodes, name) || state.FileNodes })), // Return updated state),
+    checkUniqueNodeName: (name: string) => {
+      const { FileNodes, currentFolderNode } = get(); // Access state directly
+  
+      const findNodeByName = (node: TFiles, targetFolder: string): boolean => {
+        if (node.name === targetFolder) {
+          return node.children?.some((child) => child.name === name) || false;
+        }
+  
+        if (node.isFolder && node.children) {
+          return node.children.some((child) => findNodeByName(child, targetFolder));
+        }
+  
+        return false;
+      };
+  
+      // Check if the name is unique in the current folder
+      return !findNodeByName(FileNodes, currentFolderNode);
+    },
 }));
 
