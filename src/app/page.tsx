@@ -2,15 +2,13 @@ import Link from 'next/link'
 import React from 'react'
 import Image from "next/image";
 import logo from "../../public/logo.svg";
-import thumb from "../../public/poi.png";
+import thumb from "../../public/kl.png";
 // 
 
 type Props = {}
 const Home = (props: Props) => {
   return (
     <>
-
-
       <header className="z-30 mt-2 w-full md:mt-5">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <div className="relative flex h-14 px-3 ">
@@ -63,7 +61,7 @@ const Home = (props: Props) => {
                 {/* Video thumbnail */}
                 <figure className="relative overflow-hidden rounded-2xl before:absolute before:inset-0 before:-z-10 before:bg-gradient-to-br before:from-gray-900 before:via-indigo-500/20 before:to-gray-900">
                   <Image
-                    className="opacity-50 grayscale w-auto h-auto"
+                    className="opacity-50 p-1 bg-[#1A1020]"
                     src={thumb}
                     width={1104}
                     height={576}
