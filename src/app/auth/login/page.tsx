@@ -26,7 +26,7 @@ const Login = () => {
                     <Button variant={'link'} className="w-full" size={'sm'} asChild>
                         <Link href={'/auth/signup'}>
 
-                        Don't have an account
+                        Dont have an account
                         </Link>
                     </Button>
                 </CardFooter>
