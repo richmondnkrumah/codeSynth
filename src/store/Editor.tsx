@@ -1,6 +1,5 @@
 import { ReactElement } from "react";
 import { create } from "zustand";
-import { ICONS } from "@/constant/icons";
 
 //TODO:
 // make a property called TabHistory with every lick on a file the tab history appends to the list

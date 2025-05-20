@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import StatusBar from '@/components/ui/StatusBar'
 
 
 export const metadata: Metadata = {
@@ -9,15 +10,23 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  explorer
 }: {
-  children: React.ReactNode
+  children: React.ReactNode,
+  explorer: React.ReactNode
 }) {
   return (
     <html lang="en">
-      <body className='bg-gray-950'><div className="flex min-h-screen flex-col overflow-hidden supports-[overflow:clip]:overflow-clip">
-          {children}
-        </div></body>
+      <body>
+        <main className="w-screen h-screen relative">
+          <div className="flex h-[calc(100vh-25px)] w-full">
+            <section className="w-fit">{explorer}</section>
+            <div className="w-full overflow-hidden">{children}</div>
+          </div>
+          <StatusBar />
+        </main>
+      </body>
     </html>
   )
 }
-    
+

@@ -34,7 +34,7 @@ const StatusBar = (props: Props) => {
       {/* <span className={`absolute top-0 ${okay} w-full h-[12px] left-0`}></span> */}
       <DropdownMenu>
         <DropdownMenuTrigger asChild className="cursor-pointer">
-          <p className={`text-sm font-bold ${currentTheme.colors.font}`}>Theme: <span>{newTheme}</span></p>
+          <p className={`text-sm font-semibold ${currentTheme.colors.font}`}>Theme: <span>{newTheme}</span></p>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56">
           <DropdownMenuSeparator />

@@ -25,7 +25,6 @@ export const useExplorerFileTree = create<TFilesStore>((set,get) => ({
     children: [
       {
         name: "index.js",
-        
       },
       
     ],

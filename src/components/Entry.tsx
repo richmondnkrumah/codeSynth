@@ -4,7 +4,6 @@ import { useExplorerFileTree, type TFiles } from "@/store/ExplorerFileTree";
 import File from "@/components/ui/File";
 import Folder from "@/components/ui/Folder";
 import CreateNode from "@/components/ui/CreateNode";
-import { v4 as uniqueID } from "uuid";
 
 
 type EntryProps = {

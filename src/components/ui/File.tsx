@@ -17,7 +17,7 @@ const File = ({ name }: props) => {
 
   const { getTheme } = useThemeStore();
 
-  const getIconSVG = (fileName: string): ReactElement => {
+  const getIconSVG: any = (fileName: string): ReactElement => {
     const currentTheme = getTheme();
     let tempFileName: string[] = fileName.split(".");
     const language: string =

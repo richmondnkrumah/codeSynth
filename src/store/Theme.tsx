@@ -26,7 +26,7 @@ interface themeStore {
 
 export const useThemeStore = create<themeStore>()((set,get) => (
     {
-        theme: 'dark',
+        theme: 'light',
         setTheme: (newTheme) => set(() => ({theme: newTheme})),
         getTheme: () => {
             let currentThemeName = get().theme

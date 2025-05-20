@@ -2,7 +2,6 @@
 import React from "react";
 import { useThemeStore } from "@/store/Theme";
 import FileTree from '@/components/FileTree'
-import Contributors from "@/components/ui/Contributors";
 
 const Explorer = () => {
   const { getTheme } = useThemeStore();

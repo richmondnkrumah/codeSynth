@@ -1,102 +1,184 @@
-import Link from 'next/link'
-import React from 'react'
-import Image from "next/image";
-import logo from "../../public/logo.svg";
-import thumb from "../../public/kl.png";
-// 
+"use client";
+import { useThemeStore } from "@/store/Theme";
+import Editor, { useMonaco } from "@monaco-editor/react";
+import { useEditorFileStore } from "@/store/Editor";
+import { useRef, useEffect } from "react";
 
-type Props = {}
-const Home = (props: Props) => {
-  return (
-    <>
-      <header className="z-30 mt-2 w-full md:mt-5">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <div className="relative flex h-14 px-3 ">
-            {/* Site branding */}
-            <div className="flex flex-1 items-center gap-3">
-              <Link href="/" className="inline-flex shrink-0" aria-label="Cruip">
-                <Image src={logo} alt="Cruip Logo" width={32} height={32} />
-              </Link>
-              <p className='text-white font-bold'>Code Synth</p>
-            </div>
-
-
-          </div>
-        </div>
-      </header>
-      <main className="relative flex grow flex-col">
-        <section>
-          <div className="mx-auto max-w-6xl px-4 sm:px-6">
-            <div className="py-12 md:py-20">
-              <div className="pb-12 text-center md:pb-20">
-                <h1
-                  className="animate-[gradient_6s_linear_infinite] bg-[linear-gradient(to_right,theme(colors.gray.200),theme(colors.indigo.200),theme(colors.gray.50),theme(colors.indigo.300),theme(colors.gray.200))] bg-[length:200%_auto] bg-clip-text pb-5 font-nacelle text-4xl font-semibold text-transparent md:text-5xl"
-
-                >
-                  Easy and Simple Code Editor for Everyone
-                </h1>
-                <div className="mx-auto max-w-3xl">
-                  <p
-                    className="mb-8 text-xl text-indigo-200/65"
-                  >
-                    Take charge of your coding projects with our intuitive, user-friendly code editing tool today and streamline your workflow.
-                  </p>
-                  <div className="mx-auto max-w-xs sm:flex sm:max-w-none sm:justify-center">
-                    <div>
-                      <a
-                        className="p-5 rounded-lg bg-blue-400"
-                        href="/editor"
-                      >
-                        <span className="relative inline-flex items-center">
-                          Get Started
-                        </span>
-                      </a>
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-              <div className="relative">
-
-                {/* Video thumbnail */}
-                <figure className="relative overflow-hidden rounded-2xl before:absolute before:inset-0 before:-z-10 before:bg-gradient-to-br before:from-gray-900 before:via-indigo-500/20 before:to-gray-900">
-                  <Image
-                    className="opacity-50 p-1 bg-[#1A1020]"
-                    src={thumb}
-                    width={1104}
-                    height={576}
-                    priority
-                    alt={'hero image'}
-                  />
-                </figure>
-                {/* Play icon */}
-                {/* End: Video thumbnail */}
-              </div>
-            </div>
-          </div>
-
-        </section>
-      </main>
-      <footer className="mt-20">
-        <div className="custom-screen">
-          <div className="mt-10 py-8 border-t border-gray-800 items-center justify-between sm:flex">
-            <p className="text-gray-400 text-center">© 2023 CodeSynth Inc. All rights reserved.</p>
-            <div className="flex items-center justify-center gap-x-6 text-gray-500 mt-6 sm:mt-0">
-              <a href="/" target="_blank" aria-label="social media">
-                <svg className="w-6 h-6 hover:text-gray-200 duration-150" fill="none" viewBox="0 0 48 48"><g clip-path="url(#a)"><path fill="currentColor" d="M48 24C48 10.745 37.255 0 24 0S0 10.745 0 24c0 11.979 8.776 21.908 20.25 23.708v-16.77h-6.094V24h6.094v-5.288c0-6.014 3.583-9.337 9.065-9.337 2.625 0 5.372.469 5.372.469v5.906h-3.026c-2.981 0-3.911 1.85-3.911 3.75V24h6.656l-1.064 6.938H27.75v16.77C39.224 45.908 48 35.978 48 24z" /></g><defs><clipPath id="a"><path fill="currentColor" d="M0 0h48v48H0z" /></clipPath></defs></svg>
-              </a>
-              <a href="/" target="_blank" aria-label="social media">
-                <svg className="w-6 h-6 hover:text-gray-200 duration-150" fill="none" viewBox="0 0 48 48"><g clip-path="url(#clip0_17_80)"><path fill="currentColor" d="M15.1 43.5c18.11 0 28.017-15.006 28.017-28.016 0-.422-.01-.853-.029-1.275A19.998 19.998 0 0048 9.11c-1.795.798-3.7 1.32-5.652 1.546a9.9 9.9 0 004.33-5.445 19.794 19.794 0 01-6.251 2.39 9.86 9.86 0 00-16.788 8.979A27.97 27.97 0 013.346 6.299 9.859 9.859 0 006.393 19.44a9.86 9.86 0 01-4.462-1.228v.122a9.844 9.844 0 007.901 9.656 9.788 9.788 0 01-4.442.169 9.867 9.867 0 009.195 6.843A19.75 19.75 0 010 39.078 27.937 27.937 0 0015.1 43.5z" /></g><defs><clipPath id="clip0_17_80"><path fill="currentColor" d="M0 0h48v48H0z" /></clipPath></defs></svg>
-              </a>
-              <a href="/" target="_blank" aria-label="social media">
-                <svg className="w-6 h-6 hover:text-gray-200 duration-150" fill="none" viewBox="0 0 48 48"><g clip-path="url(#clip0_17_68)"><path fill="currentColor" d="M44.447 0H3.544C1.584 0 0 1.547 0 3.46V44.53C0 46.444 1.584 48 3.544 48h40.903C46.407 48 48 46.444 48 44.54V3.46C48 1.546 46.406 0 44.447 0zM14.24 40.903H7.116V17.991h7.125v22.912zM10.678 14.87a4.127 4.127 0 01-4.134-4.125 4.127 4.127 0 014.134-4.125 4.125 4.125 0 010 8.25zm30.225 26.034h-7.115V29.766c0-2.653-.047-6.075-3.704-6.075-3.703 0-4.265 2.896-4.265 5.887v11.325h-7.107V17.991h6.826v3.13h.093c.947-1.8 3.272-3.702 6.731-3.702 7.21 0 8.541 4.744 8.541 10.912v12.572z" /></g><defs><clipPath id="clip0_17_68"><path fill="currentColor" d="M0 0h48v48H0z" /></clipPath></defs></svg>
-              </a>
-            </div>
-          </div>
-        </div>
-      </footer>
-    </>
-  )
+interface EditorFile {
+  fileName: string;
+  language: string;
+  content: string;
+  defaultValue?: string;
+  icon?: React.ReactElement;
 }
 
-export default Home
+const CodeEditor = () => {
+  const { getTheme } = useThemeStore();
+  const currentTheme = getTheme();
+  const monacoInstance = useMonaco()
+  // TODO: define a monaco config for each theme
+  monacoInstance?.editor.defineTheme('dark', {
+    base: 'vs-dark',
+    inherit: true,
+    rules: [
+      {
+        token: 'comment',
+        foreground: '#5d7988',
+        fontStyle: 'italic'
+      },
+      { token: 'constant', foreground: '#e06c75' }
+    ],
+    colors: {
+      'editor.background': `${currentTheme.colors.editor.split('[')[1].split(']')[0]}`,
+      "editor.foreground": `${currentTheme.colors.editorFont}`,
+      "editor.selectionBackground": "#5f7e9779",
+      "editor.lineHighlightBackground": `${currentTheme.colors.foreground}`,
+      "editorCursor.foreground": "#80a4c2",
+      // "editorWhitespace.foreground": "#2e2040",
+      // "editorIndentGuide.background": "#5e81ce52",
+      "editor.selectionHighlightBorder": "#122d42"
+    }
+  });
+  const {
+    files,
+    activeEditor,
+    setActiveEditor,
+    addNewDeletedFile,
+    updateFile,
+    setCurrentLanguage,
+    setNewTabHistory,
+  } = useEditorFileStore();
+
+  const handleClick = (editor: EditorFile) => {
+    setActiveEditor(editor);
+    setCurrentLanguage(editor.language);
+    setNewTabHistory(editor);
+  };
+
+  const fileContainerRef = useRef<null | HTMLDivElement>(null);
+  const activeEditorRef = useRef<null | HTMLDivElement>(null);
+
+  const handleEditorContentChange = (value: string | undefined) => {
+    updateFile(activeEditor?.fileName!, value ? value : "");
+  };
+  const handleDeletedFiles = (editor: EditorFile) => {
+    addNewDeletedFile(editor);
+  };
+  useEffect(() => {
+    scrollToActiveFile();
+  }, [activeEditor]);
+
+  const scrollToActiveFile = () => {
+    if (fileContainerRef.current) {
+      const container = fileContainerRef.current;
+
+      const activeFileElement = activeEditorRef
+        ? activeEditorRef.current
+        : null;
+      if (activeFileElement) {
+        // get the container full width
+        const containerWidth = container.offsetWidth;
+        // get the activeFiles current position  from the containers left edge to its left edge
+        const fileOffsetLeft = activeFileElement.offsetLeft;
+        // get the active file width
+        const fileWidth = activeFileElement.offsetWidth;
+        // calculate the distance the scrollbar has to move
+        const scrollTo = fileOffsetLeft + fileWidth - containerWidth;
+        container.scrollLeft = scrollTo > 0 ? scrollTo : 0;
+      }
+    }
+  };
+  return (
+    <div className={`relative  w-full h-full flex flex-col `}>
+      <div
+        ref={fileContainerRef}
+        className={`scrollContainer ${currentTheme.colors.primary} h-fit  flex gap-1 overflow-x-auto overflow-y-hidden w-full`}
+      >
+        {files?.map((editor) => (
+          <div
+            ref={
+              activeEditor?.fileName === editor.fileName
+                ? activeEditorRef
+                : null
+            }
+            className={`text-sm ${currentTheme.colors.font} cursor-pointer relative flex w-[180px] justify-between items-center 
+            before:content-[""] h-14 before:w-full before:h-[3px] before:absolute before:bottom-1 ${currentTheme.colors.accent
+              } ${activeEditor?.fileName === editor.fileName
+                ? "before:block"
+                : "before:hidden"
+              } 
+            `}
+            key={editor.fileName + editor.language}
+          >
+            <div
+              onClick={() => handleClick(editor)}
+              className="w-full h-full flex items-center justify-between"
+            >
+              <div className="w-7">{editor.icon}</div>
+              <p className="w-[120px]  overflow-hidden text-ellipsis">
+                {editor.fileName}
+              </p>
+            </div>
+            <div
+              className="w-6 h-6 "
+              onClick={() => handleDeletedFiles(editor)}
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+                <g
+                  id="SVGRepo_tracerCarrier"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                ></g>
+                <g id="SVGRepo_iconCarrier">
+                  {" "}
+                  <g id="Menu / Close_SM">
+                    {" "}
+                    <path
+                      id="Vector"
+                      d="M16 16L12 12M12 12L8 8M12 12L16 8M12 12L8 16"
+                      stroke={`${currentTheme.colors.accent.split('[')[1].split(']')[0]}`}
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    ></path>{" "}
+                  </g>{" "}
+                </g>
+              </svg>
+            </div>
+          </div>
+        ))}
+      </div>
+      {/* <div className={`absolute z-[999] bottom-10 right-10 w-16 h-16 flex items-center justify-center ${currentTheme.colors.primary} text-gray-500  rounded-full`}>
+        <span> ADD</span>
+      </div> */}
+      <div className={`${currentTheme.colors.editor} w-full h-full`}>
+        {(activeEditor && files?.length) ? (
+          <Editor
+            defaultLanguage={activeEditor?.language}
+            onChange={handleEditorContentChange}
+            defaultValue={activeEditor.content}
+            path={activeEditor?.fileName}
+            options={{
+              minimap: {
+                enabled: false,
+              }
+            }}
+            theme="dark"
+          />
+        ) : (
+          <div className="h-full flex justify-center items-center flex-col gap-3">
+            <h1 className={`${currentTheme.colors.font} text-6xl opacity-40`}>CODE SYNTH</h1>
+            <p className={`${currentTheme.colors.font} text-md opacity-40`}>where all developers collaborate</p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default CodeEditor;
