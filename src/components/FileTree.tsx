@@ -111,7 +111,7 @@ const FileTree = () => {
                 <p className="text-xs text-gray-500">No files found.</p>
               )}
               {filteredResults.map((entry, idx) => (
-                <div key={entry.name} className="text-sm text-blue-600">
+                <div key={entry.name} className="text-md text-blue-600">
                   📄 {entry.name}
                 </div>
               ))}
