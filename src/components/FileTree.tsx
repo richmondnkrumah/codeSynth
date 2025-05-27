@@ -1,15 +1,23 @@
-"use client"
 import { useState } from "react";
 import Entry from "./Entry";
 import { useExplorerFileTree } from "@/store/ExplorerFileTree";
 import { useThemeStore } from "@/store/Theme";
 import CreateNode from "./ui/CreateNode";
+import { searchFiles } from "@/lib/utils"; // ✅ import this
 
 const FileTree = () => {
-  const { getTheme,theme } = useThemeStore();
+  const { getTheme, theme } = useThemeStore();
   const currentTheme = getTheme();
-  const { FileNodes, setNewNode, setCurrentFolderNode, currentFolderNode } =
-    useExplorerFileTree();
+
+  const {
+    FileNodes,
+    setNewNode,
+    setCurrentFolderNode,
+    currentFolderNode,
+    searchQuery,
+    setSearchQuery,
+  } = useExplorerFileTree();
+
   const [folState, setFolState] = useState<null | boolean>(null);
   const [isDone, setIsDone] = useState<boolean>(true);
 
@@ -17,18 +25,30 @@ const FileTree = () => {
     setFolState(isFolder);
     setIsDone(true);
     setNewNode(true);
-  }
+  };
+
   const handleIsNodeCreating = () => {
-    setCurrentFolderNode('root')
-  }
+    setCurrentFolderNode("root");
+  };
+
+  const filteredResults = searchQuery
+    ? searchFiles(FileNodes, searchQuery)
+    : [];
 
   return (
-    <div className="flex flex-col gap-2 h-full " >
-      <div className="flex gap-1  ">
-        <div className="grow">
-          <input placeholder="Search" className={`w-full h-8 border  bg-inherit outline-none rounded-2xl indent-4 ${theme === "dark" ? "border-gray-400/30" : "border-gray-400/60"}`} type="text"></input>
+    <div className="flex flex-col gap-2 h-full">
+      <div className="flex  gap-1">
+        <div className="flex grow">
+          <input
+            placeholder="Search"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className={`w-full h-8 border bg-inherit outline-none rounded-2xl indent-4 ${theme === "dark" ? "border-gray-400/30" : "border-gray-400/60"
+              }`}
+            type="text"
+          />
         </div>
-        <div className="flex gap-1 items-center " >
+        <div className=" flex gap-1 items-center " >
           <div onClick={() => handleNodeCreation(false)} className="w-5 cursor-pointer">
             <svg
               viewBox="0 0 24 24"
@@ -77,56 +97,51 @@ const FileTree = () => {
               </g>
             </svg>
           </div>
-          {/* <div className="w-4 cursor-pointer">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-              <g
-                id="SVGRepo_tracerCarrier"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              ></g>
-              <g id="SVGRepo_iconCarrier">
-                {" "}
-                <path
-                  d="M21 3V8M21 8H16M21 8L18 5.29168C16.4077 3.86656 14.3051 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21C16.2832 21 19.8675 18.008 20.777 14"
-                  stroke={`${currentTheme.colors.accent.split('[')[1].split(']')[0]}`}
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                ></path>{" "}
-              </g>
-            </svg>
-          </div> */}
+
         </div>
+       
+
       </div>
 
-      <div className=" h-full " onClick={handleIsNodeCreating}>
-        {/* <div onClick={() => setOpenProjectDirectory(prev => !prev)} className={`flex gap-2 ${currentTheme.colors.editor} py-1 absolute w-[calc(100%_+_16px)] -left-2`}>
-          <span className="block w-4 pl-2">{openProjectDirectory ? "+" : "-"}</span>
-          <p>New Project</p>
-        </div> */}
-
-        {
-
-          (
-            <div className="pl-4 mt-3 overflow-auto">
-              {
-                (currentFolderNode === "root" && FileNodes.children?.length === 0) &&
-                (
-                  <CreateNode folState={folState} isDone={isDone} setIsDone={setIsDone} />
-                )
-              }
-              {FileNodes.children?.map((entry, idx) => (
-                <Entry entry={entry} key={entry.name} depth={1} isDone={isDone} folState={folState} setIsDone={setIsDone} childIndex={idx} parent={FileNodes} parentExpanded={true} />
+      <div className="h-full" onClick={handleIsNodeCreating}>
+        <div className="pl-4 mt-3 overflow-auto">
+          {searchQuery ? (
+            <>
+              {filteredResults.length === 0 && (
+                <p className="text-xs text-gray-500">No files found.</p>
+              )}
+              {filteredResults.map((entry, idx) => (
+                <div key={entry.name} className="text-sm text-blue-600">
+                  📄 {entry.name}
+                </div>
               ))}
-            </div>
-          )
-        }
-
+            </>
+          ) : (
+            <>
+              {currentFolderNode === "root" &&
+                FileNodes.children?.length === 0 && (
+                  <CreateNode
+                    folState={folState}
+                    isDone={isDone}
+                    setIsDone={setIsDone}
+                  />
+                )}
+              {FileNodes.children?.map((entry, idx) => (
+                <Entry
+                  entry={entry}
+                  key={entry.name}
+                  depth={1}
+                  isDone={isDone}
+                  folState={folState}
+                  setIsDone={setIsDone}
+                  childIndex={idx}
+                  parent={FileNodes}
+                  parentExpanded={true}
+                />
+              ))}
+            </>
+          )}
+        </div>
       </div>
     </div>
   );
